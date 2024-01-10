@@ -35,7 +35,7 @@ class CategoryViewSet(APIView):
         :param request:
         :return:
         """
-        category_id = request.data.get('id')
+        category_id = request.query_params.get('id', None)
         category = Category.objects.get(id=category_id)
         category.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -46,7 +46,7 @@ class CategoryViewSet(APIView):
         :param request:
         :return:
         """
-        category_id = request.data.get('id')
+        category_id = request.query_params.get('id', None)
         category = Category.objects.get(id=category_id)
         serializer = CategorySerializer(category, data=request.data)
         if serializer.is_valid():

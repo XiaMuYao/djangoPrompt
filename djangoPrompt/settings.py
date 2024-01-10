@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# settings.py
+
+
 
 # Application definition
 
@@ -107,11 +110,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+# need use UTC
+TIME_ZONE = 'Asia/Shanghai'
+USE_TZ = False
+# USE_TZ = True
 
 USE_I18N = True
-
-USE_TZ = True
+APPEND_SLASH=False
 
 
 # Static files (CSS, JavaScript, Images)

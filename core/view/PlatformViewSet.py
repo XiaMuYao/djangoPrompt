@@ -2,28 +2,29 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from core.models.models import Profession
+from core.models.models import Profession, Platform
+from core.serializer.PlatformSerializer import PlatformSerializer
 from core.serializer.ProfessionSerializer import ProfessionSerializer
 
 
-class ProfessionViewSet(APIView):
+class PlatformViewSet(APIView):
     def get(self, request):
         """
-        获取所有 Profession
+        获取所有 Platform
         :param request:
         :return:
         """
-        profession = Profession.objects.all()
-        serializer = ProfessionSerializer(profession, many=True)
+        platform = Platform.objects.all()
+        serializer = PlatformSerializer(platform, many=True)
         return Response(serializer.data)
 
     def post(self, request):
         """
-        创建一个 Profession,如果重复了就返回失败
+        创建一个 Platform,如果重复了就返回失败
         :param request:
         :return:
         """
-        serializer = ProfessionSerializer(data=request.data)
+        serializer = PlatformSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -31,24 +32,24 @@ class ProfessionViewSet(APIView):
 
     def delete(self, request):
         """
-        删除一个 Profession
+        删除一个 Platform
         :param request:
         :return:
         """
-        profession_id = request.query_params.get('id', None)
-        profession = Profession.objects.get(id=profession_id)
-        profession.delete()
+        platform_id = request.query_params.get('id', None)
+        platform = Profession.objects.get(id=platform_id)
+        platform.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def put(self, request):
         """
-        更新一个 Profession
+        更新一个 Platform
         :param request:
         :return:
         """
-        profession_id = request.query_params.get('id', None)
-        profession = Profession.objects.get(id=profession_id)
-        serializer = ProfessionSerializer(profession, data=request.data)
+        platform_id = request.query_params.get('id', None)
+        platform = Profession.objects.get(id=platform_id)
+        serializer = ProfessionSerializer(platform, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

@@ -2,9 +2,6 @@ from rest_framework import serializers
 
 from core.models.models import Category
 
-from rest_framework import serializers
-from core.models.models import Category
-
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:

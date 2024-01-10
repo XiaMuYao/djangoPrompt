@@ -2,28 +2,28 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from core.models.models import Profession
-from core.serializer.ProfessionSerializer import ProfessionSerializer
+from core.models.models import Tag
+from core.serializer.TagSerializer import TagSerializer
 
 
-class ProfessionViewSet(APIView):
+class TagViewSet(APIView):
     def get(self, request):
         """
-        获取所有 Profession
+        获取所有 Tag
         :param request:
         :return:
         """
-        profession = Profession.objects.all()
-        serializer = ProfessionSerializer(profession, many=True)
+        tag = Tag.objects.all()
+        serializer = TagSerializer(tag, many=True)
         return Response(serializer.data)
 
     def post(self, request):
         """
-        创建一个 Profession,如果重复了就返回失败
+        创建一个 Tag,如果重复了就返回失败
         :param request:
         :return:
         """
-        serializer = ProfessionSerializer(data=request.data)
+        serializer = TagSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -31,13 +31,13 @@ class ProfessionViewSet(APIView):
 
     def delete(self, request):
         """
-        删除一个 Profession
+        删除一个 Tag
         :param request:
         :return:
         """
-        profession_id = request.query_params.get('id', None)
-        profession = Profession.objects.get(id=profession_id)
-        profession.delete()
+        tag_id = request.query_params.get('id', None)
+        tag = Tag.objects.get(id=tag_id)
+        tag.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def put(self, request):
@@ -46,9 +46,9 @@ class ProfessionViewSet(APIView):
         :param request:
         :return:
         """
-        profession_id = request.query_params.get('id', None)
-        profession = Profession.objects.get(id=profession_id)
-        serializer = ProfessionSerializer(profession, data=request.data)
+        tag_id = request.query_params.get('id', None)
+        tag = Tag.objects.get(id=tag_id)
+        serializer = TagSerializer(tag, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
